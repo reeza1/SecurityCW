@@ -18,14 +18,14 @@ def createXORCiphers(ciphertexts):
 	xorCiphertexts = []
 
 	#for every cipher, 
-	for cipher in ciphertexts:
+	while len(ciphertexts) > 0:
 		#convert cipher to byte array
 		message1 = []
-		conversion = bytes.fromhex(cipher)
+		conversion = bytes.fromhex(ciphertexts[0])
 		[message1.append(x) for x in conversion]
 			
 		#Remove so it doesn't compare with itself, and isn't compared with again in future iterations
-		ciphertexts.remove(cipher)
+		ciphertexts.remove(ciphertexts[0])
 
 		#compare to every other cipher
 		for cipher in ciphertexts:
@@ -106,18 +106,13 @@ if __name__ == '__main__':
 
 			#cribdrag with the current cipher and given guess word 
 			cipherguesses = CribDragging(xorCiphertexts[cipher], guessword)
-			print(cipherguesses)
-			continueWithCipher = getUserInput()
+			if cipherguesses != None:
+				print(cipherguesses)
+				continueWithCipher = getUserInput()
+
 			cipher = cipher +1
 
 			#if a cipher is chosen, continue only with that cipher
 			if continueWithCipher == 'Y':
 				xorCiphertexts = [xorCiphertexts[cipher]]
-				break
-
-
-
-
-		
-
-		
+				break	
